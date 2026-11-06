@@ -43,6 +43,9 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
+                        // Public root endpoint
+                        .requestMatchers("/", "/error").permitAll()
+
                         // Public APIs
                         .requestMatchers(
                                 "/api/users/register",
@@ -55,28 +58,29 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**")
                         .hasRole("ADMIN")
 
-                        // Product APIs
+                        // Product APIs - View
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/products/**"
                         ).hasAnyRole("USER", "ADMIN")
 
+                        // Product APIs - Add, Update, Delete
                         .requestMatchers("/api/products/**")
                         .hasRole("ADMIN")
 
+                        // Category APIs - View
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/categories",
+                                "/api/categories/**"
+                        ).hasAnyRole("USER", "ADMIN")
 
-// Category APIs - View
-                                .requestMatchers(
-                                        HttpMethod.GET,
-                                        "/api/categories",
-                                        "/api/categories/**"
-                                ).hasAnyRole("USER", "ADMIN")
+                        // Category APIs - Add, Update, Delete
+                        .requestMatchers(
+                                "/api/categories",
+                                "/api/categories/**"
+                        ).hasRole("ADMIN")
 
-// Category APIs - Add, Update, Delete
-                                .requestMatchers(
-                                        "/api/categories",
-                                        "/api/categories/**"
-                                ).hasRole("ADMIN")
                         // Shopping Cart
                         .requestMatchers("/api/cart/**")
                         .hasAnyRole("USER", "ADMIN")
@@ -89,6 +93,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/payments/**")
                         .hasAnyRole("USER", "ADMIN")
 
+                        // All remaining requests require authentication
                         .anyRequest().authenticated()
                 );
 
