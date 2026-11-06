@@ -1,0 +1,33 @@
+# Build output
+target/
+*.jar
+*.war
+*.class
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code / Eclipse / NetBeans
+.vscode/
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+nbproject/
+
+# Secrets and local config (never commit these)
+.env
+*.env
+application-local.properties
+application-local.yml
+application-secret.properties
+
+# Logs and OS files
+*.log
+logs/
+.DS_Store
+Thumbs.db
