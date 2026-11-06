@@ -94,7 +94,7 @@ public class SecurityConfig {
                         .hasAnyRole("USER", "ADMIN")
 
                         // All remaining requests require authentication
-                        .anyRequest().authenticated()
+                        .requestMatchers("/", "/error").permitAll()
                 );
 
         http.addFilterBefore(
